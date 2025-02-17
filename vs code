@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Management</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        button { margin: 5px; }
+    </style>
+</head>
+<body>
+    <h2>User Form</h2>
+    <input type="text" id="name" placeholder="Enter Name" required>
+    <input type="email" id="email" placeholder="Enter Email" required>
+    <input type="text" id="phone" placeholder="Enter Phone Number" required>
+    <button onclick="addUser()">Add</button>
+    
+    <h2>User List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", loadUsers);
+
+        function addUser() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+
+            if (!name || !email || !phone) {
+                alert("Please fill all fields.");
+                return;
+            }
+            
+            if (confirm("Do you want to add this user?")) {
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+                users.push({ name, email, phone });
+                localStorage.setItem("users", JSON.stringify(users));
+                alert("User added successfully!");
+                loadUsers();
+            }
+        }
+
+        function loadUsers() {
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            let table = document.getElementById("userTable");
+            table.innerHTML = "";
+            users.forEach((user, index) => {
+                let row = `<tr>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}</td>
+                    <td>
+                        <button onclick="editUser(${index})">Edit</button>
+                        <button onclick="deleteUser(${index})">Delete</button>
+                    </td>
+                </tr>`;
+                table.innerHTML += row;
+            });
+        }
+
+        function deleteUser(index) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                let users = JSON.parse(localStorage.getItem("users"));
+                users.splice(index, 1);
+                localStorage.setItem("users", JSON.stringify(users));
+                alert("User deleted successfully!");
+                loadUsers();
+            }
+        }
+
+        function editUser(index) {
+            let users = JSON.parse(localStorage.getItem("users"));
+            let newName = prompt("Enter new name:", users[index].name);
+            let newPhone = prompt("Enter new phone number:", users[index].phone);
+            if (newName && newPhone) {
+                users[index].name = newName;
+                users[index].phone = newPhone;
+                localStorage.setItem("users", JSON.stringify(users));
+                loadUsers();
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input, button { padding: 8px; margin: 5px; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 10px; background: #f2f2f2; margin: 5px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <h2>To-Do List</h2>
+    <input id="taskInput" placeholder="Enter Task">
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        function loadTasks() {
+            let tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+            document.getElementById("taskList").innerHTML = tasks.map((task, i) => 
+                `<li>${task} <button onclick="editTask(${i})">✏️</button> <button onclick="deleteTask(${i})">❌</button></li>`
+            ).join('');
+        }
+
+        function addTask() {
+            let task = document.getElementById("taskInput").value.trim();
+            if (!task) return alert("Enter a task");
+            let tasks = JSON.parse(sessionStorage.getItem("tasks")) || [];
+            tasks.push(task);
+            sessionStorage.setItem("tasks", JSON.stringify(tasks));
+            document.getElementById("taskInput").value = "";
+            loadTasks();
+        }
+
+        function deleteTask(index) {
+            let tasks = JSON.parse(sessionStorage.getItem("tasks"));
+            tasks.splice(index, 1);
+            sessionStorage.setItem("tasks", JSON.stringify(tasks));
+            loadTasks();
+        }
+
+        function editTask(index) {
+            let tasks = JSON.parse(sessionStorage.getItem("tasks"));
+            let newTask = prompt("Edit Task", tasks[index]);
+            if (newTask) tasks[index] = newTask;
+            sessionStorage.setItem("tasks", JSON.stringify(tasks));
+            loadTasks();
+        }
+
+        loadTasks();
+    </script>
+</body>
+</html>
