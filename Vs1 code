@@ -1,0 +1,85 @@
+
+<button id="hide">Hide</button>
+<button id="show">Show</button>
+<p id="text">Hello, jQuery!</p>
+
+<script>
+  $("#hide").click(function() { $("#text").hide(); });
+  $("#show").click(function() { $("#text").show(); });
+</script>
+
+<button id="fadeOut">Fade Out</button>
+<button id="fadeIn">Fade In</button>
+<div id="box" style="width:100px;height:100px;background:red;"></div>
+
+<script>
+  $("#fadeOut").click(function() { $("#box").fadeOut(); });
+  $("#fadeIn").click(function() { $("#box").fadeIn(); });
+</script>
+
+<button id="slideUp">Slide Up</button>
+<button id="slideDown">Slide Down</button>
+<p id="panel">This is a sliding panel.</p>
+
+<script>
+  $("#slideUp").click(function() { $("#panel").slideUp(); });
+  $("#slideDown").click(function() { $("#panel").slideDown(); });
+
+<button id="toggle">Toggle Text</button>
+<p id="toggleText">Click the button to toggle me.</p>
+
+<script>
+  $("#toggle").click(function() { $("#toggleText").toggle(); });
+</script>
+
+<button id="fadeToggle">Fade Toggle</button>
+<div id="fadeDiv" style="width:100px;height:100px;background:blue;"></div>
+
+<script>
+  $("#fadeToggle").click(function() { $("#fadeDiv").fadeToggle(); });
+</script>
+
+<button id="slideToggle">Slide Toggle</button>
+<p id="slidePanel">Slide this panel.</p>
+
+<script>
+  $("#slideToggle").click(function() { $("#slidePanel").slideToggle(); });
+</script>
+
+<button id="animateBtn">Animate</button>
+<div id="animBox" style="width:100px;height:100px;background:green;position:absolute;"></div>
+
+<script>
+  $("#animateBtn").click(function() { 
+    $("#animBox").animate({ left: '250px', height: '150px', width: '150px' });
+  });
+</script>
+
+<button id="delayBtn">Show After Delay</button>
+<p id="delayedText" style="display:none;">I appeared after 2 seconds!</p>
+
+<script>
+  $("#delayBtn").click(function() { 
+    $("#delayedText").delay(2000).fadeIn();
+  });
+</script>
+
+<button id="queueBtn">Queue Effect</button>
+<div id="queueBox" style="width:100px;height:100px;background:purple;"></div>
+
+<script>
+  $("#queueBtn").click(function() { 
+    $("#queueBox").animate({ left: '100px' })
+                 .animate({ top: '50px' })
+                 .animate({ left: '0px' });
+  });
+</script>
+
+<button id="start">Start Move</button>
+<button id="stop">Stop Move</button>
+<div id="moveBox" style="width:100px;height:100px;background:orange;position:absolute;"></div>
+
+<script>
+  $("#start").click(function() { $("#moveBox").animate({ left: '300px' }, 3000); });
+  $("#stop").click(function() { $("#moveBox").stop(); });
+</script>
