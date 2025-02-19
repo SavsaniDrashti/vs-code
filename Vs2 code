@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Menu</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .menu { width: 200px; background: #3498db; color: white; padding: 10px; cursor: pointer; }
+        .dropdown { display: none; background: #2980b9; padding: 10px; list-style: none; margin: 0; }
+        .dropdown li { padding: 5px; border-bottom: 1px solid white; }
+        .dropdown li:hover { background: #1a5276; }
+    </style>
+</head>
+<body>
+
+    <div class="menu">Menu ▼</div>
+    <ul class="dropdown">
+        <li>Home</li>
+        <li>About</li>
+        <li>Services</li>
+        <li>Contact</li>
+    </ul>
+
+    <script>
+        $(document).ready(function(){
+            $(".menu").click(function(){
+                $(".dropdown").slideToggle();
+            });
+        });
+    </script>
+
+</body>
+</html>
